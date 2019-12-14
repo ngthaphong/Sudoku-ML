@@ -61,7 +61,7 @@ namespace source_sudoku
             this.Width = myPanel.Width + 16;
             this.Height = myPanel.Top + myPanel.Height + space - 2 + 75;
         }
-        private void Mau_TextChanged(object sender, EventArgs e)
+        private void Mau_TextChanged(object sender, EventArgs e)//Nếu text của txt thay đổi thì màu cũng thay đổi theo
         {
             int i = int.Parse(((TextBox)sender).Tag.ToString());
             text[i].SelectAll();
@@ -90,7 +90,7 @@ namespace source_sudoku
             }
             text[1].Focus();
         }
-        private void btnMo_Click(object sender, EventArgs e)
+        private void btnMo_Click(object sender, EventArgs e)//system Input Output
         {
             DiagOpen.InitialDirectory = Application.StartupPath;
             if (DiagOpen.ShowDialog() == DialogResult.Cancel) return;
@@ -127,7 +127,7 @@ namespace source_sudoku
 
             };
         }
-        private void Nap()
+        private void Nap()//Nạp đề vào chương trình từ text của txt
         {
             for (int i = 1; i <= 81; i++)
             {
@@ -138,20 +138,21 @@ namespace source_sudoku
         private void btnGiai_Click(object sender, EventArgs e)
         {
             this.Nap();
+            //Gọi contructor của sudoku
             SDK a = new SDK(de);
-            if (a.SolveFirst())
+            if (a.SolveFirst())//Check xem có kết quả nào khả thi hay không
             {
-                for (int i = 1; i <= 81; i++)
+                for (int i = 1; i <= 81; i++)//Loop
                 {
-                    text[i].Text = a.Result[i].ToString();
-                    if (de[i] == 0)
+                    text[i].Text = a.Result[i].ToString();//Đổi text của txt
+                    if (de[i] == 0)//Do text của txt thay đổi nên màu cũng thay đổi. Hàm này dùng để check xem nếu không phải là đề thì chuyển lại màu bình thường, chỉ có đề mới highlight màu.
                     {
                         text[i].BackColor = Color.White;
                         text[i].ForeColor = Color.Black;
                     }
                 }
             }
-            else
+            else//Nếu SolveFirst == false
             {
                 MessageBox.Show("Không có kết quả nào cả !", "Vô nghiệm", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

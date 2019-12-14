@@ -57,11 +57,11 @@ namespace source_sudoku
             for (i = 1; i <= size; i++)
                 for (j = 1; j <= size; j++)
                 {
-                    row[i, j] = collum[i, j] = area[i, j] = 1;
-                    AREA[i, j] = 1 + ((i - 1) / 3) * 3 + (j - 1) / 3;
-                    for (k = 1; k <= size; k++) agree[i, j, k] = k;
-                    agree[i, j, 10] = problem[i, j] = 0;
-                    agree[i, j, 0] = size;
+                    row[i, j] = collum[i, j] = area[i, j] = 1;//Khởi tạo mảng theo dòng, cột, ô vuông
+                    AREA[i, j] = 1 + ((i - 1) / 3) * 3 + (j - 1) / 3;//Tạo giá trị để tách theo từng block riêng biệt, có 9 block (ô vuông)
+                    for (k = 1; k <= size; k++) agree[i, j, k] = k;//Tạo mảng 3 chiều, 2 chiều để chứa vị trí, 1 chiều để chứa kết quả
+                    agree[i, j, 10] = problem[i, j] = 0;//phần tử thứ 10 của mỗi biến i sẽ chứa mảng problem
+                    agree[i, j, 0] = size;//còn phần tử thứ 0 của mỗi biến i sẽ chứa size=9
                     problem[i, j] = value[i, j] = 0;
                     Area[AREA[i, j], 0]++;
                     Area[AREA[i, j], Area[AREA[i, j], 0]] = tou(i, j);
@@ -223,8 +223,8 @@ namespace source_sudoku
         }
 
         //=====================================================================================================
-        private int[] de = new int[82];
-        private bool inputData()
+        private int[] de = new int[82];//Khai báo biến chứa đề
+        private bool inputData()//trả về giá trị cho hàm SolveFirst
         {
             bool run = true;
             int a;
